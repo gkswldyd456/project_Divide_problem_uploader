@@ -13,9 +13,9 @@ import re
 dir = r"C:\Users\HanJiYong\Desktop\Testhaha\[1]하하하하"
 
 
-list_pro_hml_files = [os.path.join(dir, i) for i in os.listdir(dir) if "[1문제] [1hml]" in i]  
-print(list_pro_hml_files)
-print(len(list_pro_hml_files))
+# list_pro_hml_files = [os.path.join(dir, i) for i in os.listdir(dir) if "[1문제] [1hml]" in i]  
+# print(list_pro_hml_files)
+# print(len(list_pro_hml_files))
 
 
 list_pro_hml_files = [i for i in os.listdir(dir) if "[1문제] [1hml]" in i] # dir 중 "[1문제] [1hml]" 있는 파일 제목들(no 경로)  
@@ -74,3 +74,16 @@ for list_presol_hwp_file in list_presol_hwp_files:
     f.close()
 
 print(presol_text)
+
+if len(list_common_hml_files) != 0:
+    reverse_list_common_first_last = list_common_first_last
+    reverse_list_common_first_last.reverse()
+    print(reverse_list_common_first_last)
+
+for first, last in reverse_list_common_first_last:
+    list_pro_hml_files.insert(int(first)-1, "")
+    print(int(first))
+    # print(type(first))
+    # print(last)
+    # print(type(last))
+print(list_pro_hml_files)
