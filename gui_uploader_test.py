@@ -6,6 +6,10 @@ from tkinter import filedialog
 from PIL import Image
 
 
+
+
+
+
 root = Tk()
 root.title("")
 
@@ -18,11 +22,25 @@ def browse_dest_path():
     txt_dest_path.delete(0, END)
     txt_dest_path.insert(0, folder_selected.replace("/", "\\"))
     global dir
-    dir = folder_selected.replace("/", "\\")
+    dir = "r"+ '"' + folder_selected.replace("/", "\\") + '"'  
 
 
 def start():
-    pass
+    # 파일 목록 확인
+    if txt_dest_path.get() == '':
+        msgbox.showwarning("경고", "업로드 작업 폴더를 선택하세요.")
+        return
+    elif pronum_head.get() == '':
+        msgbox.showwarning("경고", "타이포서버 문제집 번호를 입력하세요.")
+        return
+    else:
+        # pass
+        print(dir)
+        global typonum
+        typonum = int(pronum_head.get())
+        print(typonum)
+
+
 
 # 저장 경로 프레임
 path_frame = LabelFrame(root, text="작업폴더")
@@ -40,8 +58,8 @@ btn_dest_path.pack(side="right", padx=5, pady=5)
 pronum_frame = LabelFrame(root, width=50, text="문제집 번호")
 pronum_frame.pack(fill="both", padx=5, pady=5)
 
-pronum_head = Text(pronum_frame, height=1)
-pronum_head.pack(side="left", padx=5, pady=5, ipady=4)
+pronum_head = Entry(pronum_frame)
+pronum_head.pack(fill="both", padx=5, pady=5, ipady=4)
 
 
 
@@ -60,7 +78,6 @@ btn_start1.pack(side="left", padx=5, pady=5)
 
 # btn_start3 = Button(frame_run, padx=5, pady=5, text="수정문제저장", width=12, command=start_one_pro)
 # btn_start3.pack(side="left", padx=5, pady=5)
-
 
 
 

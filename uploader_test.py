@@ -173,7 +173,9 @@ def select_son_cnt(num):
 
 ###### 여기 부터 시작
 
-dir = r"C:\Users\HanJiYong\Desktop\Testhaha\[1]하하하하하"
+
+# dir = r"C:\Users\HanJiYong\Desktop\Testhaha\[1]하하하하하"
+dir = r"C:\Users\HanJiYong\Desktop\Testhaha\[26262280]기타개인자료"
 
 list_pro_hml_files = [os.path.join(dir, i) for i in os.listdir(dir) if "[1문제] [1hml]" in i] # dir 중 "[1문제] [1hml]" 있는 파일 제목들(경로포함)  
 list_pro_png_files = [os.path.join(dir, i) for i in os.listdir(dir) if "[1문제] [2png]" in i] # dir 중 "[1문제] [2png]" 있는 파일 제목들(경로포함) 
@@ -226,7 +228,7 @@ if len(list_common_hml_files) != 0:
 driver_path = chromedriver_autoinstaller.install() # 버젼에 맞춰 자동 설치
 options = webdriver.ChromeOptions()
 # options.add_argument("headless") # 창숨기는 옵션
-# options.add_experimental_option("detach", True) # 뭐 분리해서 안꺼지게 해준다는데 잘 안됨....ㅜㅜ
+options.add_argument("disable-gpu") # 불필요한 그래픽카드 기능을 제거함으로 셀레니움 작동속도 up
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 driver = webdriver.Chrome(executable_path = driver_path, options=options)
 driver.maximize_window() # 윈도우창 최대
@@ -265,8 +267,6 @@ print('해설 업로드 완료')
 
 
 
-
-
 # time.sleep(1) # 정답 한글파일로 따로 받은 경우 -> 해설 디텍션은 안되어있는데 한글파일 정답은 있는 경우 존재 
 # te = []
 # for i in range(1, len(list_pro_hml_files)+1):
@@ -287,212 +287,8 @@ print('해설 업로드 완료')
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# ### 1회째
-
-# while check_exists_by_css_selector('#cboxLoadedContent > iframe') ==False: # iframe 창이 아직 없으면 계속 눌러라
-#     try:
-#         driver.find_element_by_css_selector('#container > div > table.tb_base > tbody > tr:nth-child(1) > td:nth-child(17) > a').click() # 1번 문제 업로드
-#         if check_exists_by_css_selector('#cboxLoadedContent > iframe') ==True:
-#             break
-#     except NoSuchElementException:
-#         pass
-
-# el = driver.find_element_by_class_name('cboxIframe') # iframe(웹사이트 안에 웹사이트를 부른거라 생각하면됨)
-# driver.switch_to.frame(el) # 그 iframe으로 포커스 옮겨
-# time.sleep(1)
-
-# driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_fileUpload1"]').send_keys('{0}'.format(list_pro_hml_files[1])) # 문제 hml업로드
-# driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_fileUpload2"]').send_keys('{0}'.format(list_pro_png_files[1])) # 문제 png업로드
-# driver.find_element_by_css_selector('#btnSave').click()
-# time.sleep(0.1)
-
-# driver.switch_to.alert
-# Alert(driver).accept()
-# time.sleep(0.1)
-# Alert(driver).accept()
-
-# driver.switch_to.default_content() # 처음 frame으로 돌아가기
-# time.sleep(0.1)
-
-# ### 2회째
-
-# while check_exists_by_css_selector('#cboxLoadedContent > iframe') ==False: # iframe 창이 아직 없으면 계속 눌러라
-#     try:
-#         driver.find_element_by_css_selector('#container > div > table.tb_base > tbody > tr:nth-child(2) > td:nth-child(17) > a').click() # 1번 문제 업로드
-#         if check_exists_by_css_selector('#cboxLoadedContent > iframe') ==True:
-#             break
-#     except NoSuchElementException:
-#         pass
-
-# el = driver.find_element_by_class_name('cboxIframe') # iframe(웹사이트 안에 웹사이트를 부른거라 생각하면됨)
-# driver.switch_to.frame(el) # 그 iframe으로 포커스 옮겨
-# # time.sleep(1)
-
-# driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_fileUpload1"]').send_keys('{0}'.format(list_pro_hml_files[2])) # 문제 hml업로드
-# driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_fileUpload2"]').send_keys('{0}'.format(list_pro_png_files[2])) # 문제 png업로드
-# driver.find_element_by_css_selector('#btnSave').click()
-# time.sleep(0.1)
-
-# driver.switch_to.alert
-# Alert(driver).accept()
-# time.sleep(0.1)
-# Alert(driver).accept()
-
-# driver.switch_to.default_content() # 처음 frame으로 돌아가기
-# time.sleep(0.1)
-
-
-
-# driver.find_element_by_css_selector('#container > div > table.tb_base > tbody > tr:nth-child(2) > td:nth-child(17) > a').click() # 2번 문제 업로드
-
-# el = driver.find_element_by_class_name('cboxIframe') # pdf업로드 화면이 iframe(웹사이트 안에 웹사이트를 부른거라 생각하면됨)
-# driver.switch_to.frame(el) # 그 iframe으로 포커스 옮겨
-# # time.sleep(1)
-
-# driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_fileUpload1"]').send_keys(r"C:\Users\HanJiYong\Desktop\Testhaha\[1]하하하하\[1]하하하하 002번 [1문제] [1hml].hml")
-# driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_fileUpload2"]').send_keys(r"C:\Users\HanJiYong\Desktop\Testhaha\[1]하하하하\[1]하하하하 002번 [1문제] [2png].png")
-# driver.find_element_by_css_selector('#btnSave').click()
-
-# driver.switch_to.default_content() # 처음 frame으로 돌아가기
-
-
-
-
-#btnCancel
-#btnSave
-# driver.find_element_by_css_selector('#container > div > table.tb_base > tbody > tr:nth-child(1) > td:nth-child(17) > a').click() # tr:nth-child(1) > td:nth-child(17) -> 1번 >  문제 업로드
-
-
-
-#container > div > table.tb_base > tbody > tr:nth-child(1) > td:nth-child(17) > a
-
-
-
-
-
-# tabs = driver.window_handles
-# driver.execute_script('window.open("https://typo.postmath.co.kr/Web2/WorkbookDetailList.aspx?seq=1101");')
-# time.sleep(0.2)
-
-#container > div > table.tb_base > tbody > tr:nth-child(120) > td:nth-child(17) > a  # tr:nth-child(120) > td:nth-child(17) -> 120번 문제 업로드
-#container > div > table.tb_base > tbody > tr:nth-child(120) > td:nth-child(18) > a  # tr:nth-child(120) > td:nth-child(18) -> 120번 해설 업로드
-# driver.get(re_url)
-
-# driver.switch_to.window(driver.window_handles[0])
-# time.sleep(0.2)
-# driver.switch_to.window(driver.window_handles[1])
-# time.sleep(0.2)
-# driver.switch_to.window(driver.window_handles[0])
-# time.sleep(0.2)
-# driver.switch_to.window(driver.window_handles[1])
-# time.sleep(0.2)
-# driver.switch_to.window(driver.window_handles[0])
-# time.sleep(0.2)
-# # driver.get(re_url)
-
-# driver.find_element_by_css_selector('#ContentPlaceHolder1_btnReg').click() # pdf업로드 버튼눌러
-# time.sleep(1)
-
-# # # 현재 웹페이지에서 iframe이 몇개가 있는지 변수에 넣고 확인해 봅니다.
-# # iframes = driver.find_elements_by_tag_name('iframe')
-# # print('현재 페이지에 iframe은 %d개가 있습니다.' % len(iframes))
-
-# el = driver.find_element_by_class_name('cboxIframe') # pdf업로드 화면이 iframe(웹사이트 안에 웹사이트를 부른거라 생각하면됨)
-# driver.switch_to.frame(el) # 그 iframe으로 포커스 옮겨
-# time.sleep(1)
-# #ddlSource11
-# #ddlSource11 > option
-# #ddlSource1 > option
-# def FC():
-#     html = driver.page_source
-#     soup = BeautifulSoup(html)
-#     Item_year = soup.select('#ddlSource11 > option') # 년도 안 정보
-#     Item_source1 = soup.select('#ddlSource1 > option') # 출처1 안 정보
-#     Item_source2 = soup.select('#ddlSource2 > option') # 출처2 안 정보
-#     Item_source3 = soup.select('#ddlSource3 > option') # 출처3 안 정보
-#     Item_source4 = soup.select('#ddlSource4 > option') # 출처4 안 정보
-#     Item_source5 = soup.select('#ddlSource5 > option') # 출처5 안 정보
-    
-#     global item_years, item_source1, item_source2, item_source3, item_source4, item_source5
-#     # item_years_value = [i["value"] for i in Item_year] # 만약 Item_year 정보 중 value 값을 가져오고 싶을 때
-#     item_years = [i.text for i in Item_year] # 년도 텍스트만
-#     item_source1 = [i.text for i in Item_source1]
-#     item_source2 = [i.text for i in Item_source2]
-#     item_source3 = [i.text for i in Item_source3]
-#     item_source4 = [i.text for i in Item_source4]
-#     item_source5 = [i.text for i in Item_source5]
-    
-    
-    
-# FC()
-# print(item_years)
-# print(item_source1)
-# print(item_source2)
-# print(item_source3)
-# print(item_source4)
-# print(item_source5)
-
-
-# # print(item_years.index('2004년')) # 2004년에 대한 idx값 -> int형 
-
-
-# driver.find_element_by_css_selector('#txtWorkbookTitle').send_keys('하하하하') # [문제집 제목]에 하하하하
-
-# driver.find_element_by_css_selector('#ddlSource11 > option:nth-child({0})'.format(item_years.index('2004년')+1)).click() # 2004년에 해당하는 것 눌러
-
-# driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_fileUpload1"]').send_keys(r"C:\Users\HanJiYong\Desktop\하하하하 008번 [3정답] [3hwp].pdf")
-
-# #ContentPlaceHolder1_fileUpload1
-
-# time.sleep(3)
-
-
-# driver.find_element_by_css_selector('#btnCancel').click() # 취소버튼
-# time.sleep(1)
-
-# driver.switch_to.default_content() # 처음 frame으로 돌아가기
-# driver.find_element_by_css_selector('#ContentPlaceHolder1_btnReg').click() # pdf업로드 버튼눌러
-
-
-
-
-
-
-### 정보TIP (검색해보면 좋음)
-# os.path.split -> 폴더, 파일명 나눠주는거 튜플로 나눠줌
-# os.path.join -> 경로 (또는 파일명) 합쳐줌
-# os.listdir(dir) -> dir(폴더) 안에 파일들 검색해줘 (list로 저장될거임)
-# os.remove -> 파일제거해
-# os.rename - > 파일명 변경
-# os.makedirs -> 폴더 만들어
-# shutil.move -> 폴더 옮겨 
-# fnmatch -> 이름매칭? 
-
-
-
-
-# try:
-#     driver.find_element_by_id('ContentPlaceHolder1_fileUpload1').is_enabled==True
-#     print('파일선택 있다!! 누른다???')
-#     driver.find_element_by_id('ContentPlaceHolder1_fileUpload1').click()
-# except NoSuchElementException:
-#     print('파일선택 없다... ㅠㅠㅜㅠ')
+time.sleep()
+pyautogui.alert(text='작업이 끝났습니다.')
 
 
 
