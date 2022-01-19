@@ -175,7 +175,8 @@ def select_son_cnt(num):
 
 
 # dir = r"C:\Users\HanJiYong\Desktop\Testhaha\[1]하하하하하"
-dir = r"C:\Users\HanJiYong\Desktop\Testhaha\[26262280]기타개인자료"
+dir = "C:\Users\HanJiYong\Desktop\Testhaha\[26262280]기타개인자료"
+redir = r"{0}".format(dir)
 
 list_pro_hml_files = [os.path.join(dir, i) for i in os.listdir(dir) if "[1문제] [1hml]" in i] # dir 중 "[1문제] [1hml]" 있는 파일 제목들(경로포함)  
 list_pro_png_files = [os.path.join(dir, i) for i in os.listdir(dir) if "[1문제] [2png]" in i] # dir 중 "[1문제] [2png]" 있는 파일 제목들(경로포함) 

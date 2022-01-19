@@ -22,7 +22,7 @@ def browse_dest_path():
     txt_dest_path.delete(0, END)
     txt_dest_path.insert(0, folder_selected.replace("/", "\\"))
     global dir
-    dir = "r"+ '"' + folder_selected.replace("/", "\\") + '"'  
+    dir = folder_selected.replace("/", "\\") 
 
 
 def start():
@@ -85,4 +85,4 @@ btn_start1.pack(side="left", padx=5, pady=5)
 root.resizable(False, False)
 root.mainloop()
 
-print(dir)
+
