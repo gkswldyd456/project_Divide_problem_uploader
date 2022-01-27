@@ -179,7 +179,9 @@ def dir_filelists_save(dir):
         f = olefile.OleFileIO(os.path.join(dir, list_presol_hwp_file)) # HWP 파일 열기
         encoded_text = f.openstream('PrvText').read() # PrvText 스트림의 내용 꺼내기
         decoded_text = encoded_text.decode('UTF-16') # 유니코드를 UTF-16으로 디코딩
-        re_decoded_text = re.sub('\n|\r', "", decoded_text)
+        re_decoded_textf = re.sub('\n|\r', "", decoded_text)
+        re_decoded_texts = re.sub('그리고', "$OTIMES$", re_decoded_textf)
+        re_decoded_text = re.sub('또는', "$OPLUS$", re_decoded_texts)
         # print(re_decoded_text)
         presol_text.append(re_decoded_text)
         son_problems = re.findall('@', decoded_text)
@@ -253,6 +255,9 @@ def start():
     else:
         global typonum
         typonum = int(pronum_head.get())
+        
+        progress_condi.delete(1.0, END)
+        progress_condi.update()
 
         dir_filelists_save(dir) # 작업폴더 각 파일을 리스트화해
         typo_open() # 타이포 열어서 몇번문제집까지 들어가 -> 500개 보기눌러놓고
@@ -268,6 +273,9 @@ def start():
 
         for i in range(1, len(list_pro_hml_files)+1): # 문제 업로드 돌려
             pro_upload(i)
+            progress_condi.insert(END, f"{i}번째 문제 업로드 완료\n")
+            progress_condi.see(END)
+            progress_condi.update()
 
         time.sleep(1)
         # print('문제 업로드 완료')
@@ -278,27 +286,30 @@ def start():
                 # print('넘어간다.')
                 continue
             sol_upload(i)
+            progress_condi.insert(END, f"{i}번째 해설 업로드 완료\n")
+            progress_condi.see(END)
+            progress_condi.update()
 
         time.sleep(1)
-        # print('해설 업로드 완료')
 
 
-        # time.sleep(1) # 정답 한글파일로 따로 받은 경우 -> 해설 디텍션은 안되어있는데 한글파일 정답은 있는 경우 존재 
-        # te = []
-        # for i in range(1, len(list_pro_hml_files)+1):
-        #     if sol_up_parts[i-1]=='False' :
-        #         if list_presol_types[i-1] == '[빈해설파일]':
-        #             print('Good')
-        #         elif list_presol_types[i-1] == '':
-        #             print('공통문제임')
-        #         else:
-        #             print('{0}번째 문제 잘못됨'.format(i))
-        #             te.append(i)
-        #     else :
-        #         pass
+        time.sleep(1) # 정답 한글파일로 따로 받은 경우 -> 해설 디텍션은 안되어있는데 한글파일 정답은 있는 경우 존재 
+        te = []
+        for i in range(1, len(list_pro_hml_files)+1):
+            if sol_up_parts[i-1]=='False' :
+                if list_presol_types[i-1] == '[빈해설파일]':
+                    print('Good')
+                elif list_presol_types[i-1] == '':
+                    print('공통문제임')
+                else:
+                    print('{0}번째 문제 잘못됨'.format(i))
+                    te.append(i)
+            else :
+                pass
 
-        # if len(te) !=0 :
-        #     driver.find_element_by_css_selector('#txtTitle').send_keys('[해설디텍X, 해설파일O]') # 민약 위와 같은 문제가 있으면 제목에 체킹 
+        if len(te) !=0 :
+            # driver.find_element_by_css_selector('#txtTitle').send_keys('[해설디텍X, 해설파일O]') # 민약 위와 같은 문제가 있으면 제목에 체킹 
+            msgbox.showinfo("알림", "[해설디텍]은 없는데 [해설파일]이 있는 파일입니다.\n \n!!!작업시트에 [해설디텍X, 해설파일O] 라고 체크해주세요.!!!")
         
         driver.close()
         driver.switch_to.window(driver.window_handles[0])
@@ -328,6 +339,23 @@ pronum_frame.pack(fill="both", padx=5, pady=5)
 
 pronum_head = Entry(pronum_frame)
 pronum_head.pack(fill="both", padx=5, pady=5, ipady=4)
+
+
+
+
+
+
+# 진행 상태 확인
+progress_frame = LabelFrame(root, height=5, text="진행상황")
+progress_frame.pack(fill="both", padx=5, pady=5)
+
+scrollbar = Scrollbar(progress_frame)
+scrollbar.pack(side="right", fill="y")
+
+progress_condi = Text(progress_frame, height=30, yscrollcommand=scrollbar.set)
+progress_condi.pack(side="left", fill="both", expand=True)
+scrollbar.config(command=progress_condi.yview)
+
 
 
 
