@@ -21,6 +21,7 @@ def typo_open():
     driver.switch_to.window(driver.window_handles[1])
     time.sleep(0.1)
     try:
+        driver.find_element_by_css_selector('#mb_id').clear()
         driver.find_element_by_css_selector('#mb_id').send_keys('postmath21') # 포메 아이디 입력
         driver.find_element_by_css_selector('#mb_password').send_keys('wD5V8Wo9@efHe$jW') # 포메 비번 입력
         if driver.find_element_by_xpath('//*[@id="id_save"]').get_attribute('checked') == None : # 아이디 저장 체크 되어있는지 판단 (안눌려있으면 None, 눌려있으면 True) 
@@ -102,6 +103,7 @@ def sol_upload(num): # 해설 업로드
     driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_fileUpload4"]').send_keys('{0}'.format(list_presol_hwp_files[idxnum])) # 정답 hwp업로드
     driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_fileUpload3"]').send_keys('{0}'.format(list_presol_png_files[idxnum])) # 정답 png업로드
     select_presol_type(num) # 정답 종류 체크
+    driver.find_element_by_css_selector('#txtAnswer').clear()
     driver.find_element_by_css_selector('#txtAnswer').send_keys('{0}'.format(presol_text[idxnum])) # 정답 텍스트 쓰기
     if list_presol_types[idxnum] == '[새끼문제]':
         select_son_cnt(num)
@@ -220,7 +222,7 @@ def dir_filelists_save(dir):
 # 일단 웹브라우져는 켜야해
 driver_path = chromedriver_autoinstaller.install() # 버젼에 맞춰 자동 설치
 options = webdriver.ChromeOptions()
-# options.add_argument("headless") # 창숨기는 옵션
+options.add_argument("headless") # 창숨기는 옵션
 options.add_argument("disable-gpu") # 불필요한 그래픽카드 기능을 제거함으로 셀레니움 작동속도 up
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 driver = webdriver.Chrome(executable_path = driver_path, options=options)
@@ -230,7 +232,7 @@ driver.implicitly_wait(3) # 활성화 될때까지 최대 3초 기다려
 
 
 root = Tk()
-root.title("")
+root.title("PM_divpro_uploader")
 
 
 def browse_dest_path():
