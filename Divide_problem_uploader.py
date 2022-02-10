@@ -33,7 +33,7 @@ def typo_open():
     # typonum = int(pyautogui.prompt(text='문제집 번호(파일 번호)를 쓰시오.')) # 문제집번호
     re_url = f'https://typo.postmath.co.kr/Web2/WorkbookDetailList.aspx?seq={typonum}'
     driver.get(re_url) # 페이지 열어라 
-    driver.find_element_by_css_selector('#ddlCount > option:nth-child(4)').click() # 500개 조회 선택
+    driver.find_element_by_css_selector('#ddlCount > option:nth-child(5)').click() # 1000개 조회 선택
 
 
 def check_exists_by_css_selector(css_selector): # css_selector로 요소 존재 여부 판단하기 
